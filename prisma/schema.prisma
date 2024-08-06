@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id     String  @id @default(uuid()) @map("_id")
+  gmail  String? @unique
+  avatar String?
+
+  googleId   String? @unique
+  facebookId String? @unique
+
+  hashPassword String?
+
+  createdAt DateTime @default(now())
+
+  @@map("users")
+}
+
+model Country {
+  id String @id @default(uuid()) @map("_id")
+
+  image String
+  title String
+
+  properties Properti[]
+
+  @@map("countres")
+}
+
+model Properti {
+  id String @id @default(uuid()) @map("_id")
+
+  country   Country? @relation(fields: [countryId], references: [id])
+  countryId String?
+
+  trips  Trip[]
+  hotels Hotel[]
+
+  @@map("properties")
+}
+
+model Trip {
+  id String @id @default(uuid()) @map("_id")
+
+  title       String
+  description String
+  image       String
+
+  properti   Properti? @relation(fields: [propertiId], references: [id])
+  propertiId String?
+
+  @@map("trips")
+}
+
+model Hotel {
+  id String @id @default(uuid()) @map("_id")
+
+  image       String
+  title       String
+  location    String
+  description String
+
+  free_wife         Boolean @default(false)
+  air_condintioning Boolean @default(false)
+  parking_available Boolean @default(false)
+  business_services Boolean @default(false)
+  swimming_pool     Boolean @default(false)
+
+  rooms Room[]
+
+  properti   Properti? @relation(fields: [propertiId], references: [id])
+  propertiId String?
+
+  @@map("hotels")
+}
+
+model Room {
+  id String @id @default(uuid()) @map("_id")
+
+  image       String
+  title       String
+  description String
+
+  sleeps          Int
+  bed_descroption Int
+
+  hotel           Hotel?  @relation(fields: [hotelId], references: [id])
+  hotelId         String?
+
+  @@map("rooms")
+}
