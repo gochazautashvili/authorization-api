@@ -48,10 +48,9 @@ export const sign_up = async (req: Request, res: Response) => {
         sameSite: "strict",
         secure: process.env.NODE_ENV === "production",
       })
-      .redirect(`${process.env.FRONTEND_URL}`);
+      .status(200)
+      .json("success");
   } catch (error) {
-    console.log(error);
-
     return res.status(500).json("Interval server error!");
   }
 };
@@ -96,7 +95,8 @@ export const sign_in = async (req: Request, res: Response) => {
         sameSite: "strict",
         secure: process.env.NODE_ENV === "production",
       })
-      .redirect(`${process.env.FRONTEND_URL}`);
+      .status(200)
+      .json("success");
   } catch (error) {
     console.log(error);
 
@@ -244,10 +244,9 @@ export const google_auth_success = async (req: Request, res: Response) => {
       .cookie("user_token", token, {
         maxAge: 1000 * 60 * 60 * 60,
         httpOnly: true,
-        sameSite: "strict",
         secure: process.env.NODE_ENV === "production",
       })
-      .redirect(`${process.env.FRONTEND_URL}`);
+      .redirect(process.env.FRONTEND_URL!);
   } catch (error) {
     return res.status(500).json("Interval server error!");
   }
@@ -275,10 +274,9 @@ export const facebook_auth_success = async (req: Request, res: Response) => {
       .cookie("user_token", token, {
         maxAge: 1000 * 60 * 60 * 60,
         httpOnly: true,
-        sameSite: "strict",
         secure: process.env.NODE_ENV === "production",
       })
-      .redirect(`${process.env.FRONTEND_URL}`);
+      .redirect(process.env.FRONTEND_URL!);
   } catch (error) {
     return res.status(500).json("Interval server error!");
   }
