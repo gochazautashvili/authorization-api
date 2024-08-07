@@ -45,7 +45,7 @@ export const sign_up = async (req: Request, res: Response) => {
       .cookie("user_token", token, {
         maxAge: 1000 * 60 * 60 * 60,
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none",
         secure: process.env.NODE_ENV === "production",
       })
       .status(200)
@@ -244,6 +244,7 @@ export const google_auth_success = async (req: Request, res: Response) => {
       .cookie("user_token", token, {
         maxAge: 1000 * 60 * 60 * 60,
         httpOnly: true,
+        sameSite: "none",
         secure: process.env.NODE_ENV === "production",
       })
       .redirect(process.env.FRONTEND_URL!);
@@ -274,6 +275,7 @@ export const facebook_auth_success = async (req: Request, res: Response) => {
       .cookie("user_token", token, {
         maxAge: 1000 * 60 * 60 * 60,
         httpOnly: true,
+        sameSite: "none",
         secure: process.env.NODE_ENV === "production",
       })
       .redirect(process.env.FRONTEND_URL!);
