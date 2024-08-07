@@ -16,6 +16,7 @@ app.use(
   cors({
     origin: "https://authorization-servace.netlify.app",
     credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
 app.use(compression());
