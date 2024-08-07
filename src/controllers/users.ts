@@ -112,11 +112,12 @@ export const sign_out = async (req: Request, res: Response) => {
   }
 
   return res
-    .status(200)
     .clearCookie("user_token", {
       httpOnly: true,
+      sameSite: "none",
       secure: process.env.NODE_ENV === "production",
     })
+    .status(200)
     .json("success");
 };
 
