@@ -14,7 +14,7 @@ const app: Express = express();
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: "https://authorization-servace.netlify.app",
     credentials: true,
   })
 );
